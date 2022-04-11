@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios'
+import instance from '../../axios';
 
 
 export const makeTransfer = createAsyncThunk('/makeTransfer', async (transferDetails) => {
     const {payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo} = transferDetails
     console.log('THUNK', transferDetails)
     try {
-        const { data } = await axios.post('/api/add-transaction', { payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo })
+        const { data } = await instance.post('/api/add-transaction', { payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo })
         return data
     } catch (err) {
         return err.response.data

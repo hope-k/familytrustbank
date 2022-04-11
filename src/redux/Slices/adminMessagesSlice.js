@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios'
+import instance from '../../axios';
 
 
 export const getAllMessages = createAsyncThunk('/all-messages', async () => {
     try {
-        const { data } = await axios.get('/api/all-messages')
+        const { data } = await instance.get('/api/all-messages')
         return data
     } catch (err) {
         return err.response.data
@@ -12,7 +12,7 @@ export const getAllMessages = createAsyncThunk('/all-messages', async () => {
 })
 export const addMessage = createAsyncThunk('/add-message', async ({ title, text, user }) => {
     try {
-        const { data } = await axios.post('/api/add-message', { title, text, user });
+        const { data } = await instance.post('/api/add-message', { title, text, user });
         return data
     } catch (err) {
         return err.response.data
@@ -20,7 +20,7 @@ export const addMessage = createAsyncThunk('/add-message', async ({ title, text,
 })
 export const deleteMessage = createAsyncThunk('/delete-message', async ({ id }) => {
     try {
-        const { data } = await axios.delete(`/api/delete-message/?id=${id}`);
+        const { data } = await instance.delete(`/api/delete-message/?id=${id}`);
         return data
     } catch (err) {
         return err.response.data
@@ -28,7 +28,7 @@ export const deleteMessage = createAsyncThunk('/delete-message', async ({ id }) 
 })
 export const updateMessage = createAsyncThunk('/update-message', async ({ field, id, value }) => {
     try {
-        const { data } = await axios.put(`/api/update-message/`, {
+        const { data } = await instance.put(`/api/update-message/`, {
             id, field, value
         });
         return data

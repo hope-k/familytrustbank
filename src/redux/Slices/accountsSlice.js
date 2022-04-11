@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios'
-
+import instance from '../../axios';
 
 export const getMyAccounts = createAsyncThunk('/myAccounts', async () => {
     try {
-        const { data } = await axios.get('/api/accounts')
+        const { data } = await instance.get('/api/accounts')
         return data
     } catch (err) {
         return err.response.data

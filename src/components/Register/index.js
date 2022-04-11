@@ -9,8 +9,7 @@ import { resetAuthError } from '../../redux/Slices/authSlice'
 import FadeLoader from 'react-spinners/FadeLoader'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
-import axios from 'axios'
-
+import instance from '../../axios'
 
 const RegisterPage = () => {
     const { error, loading, isAuthenticated, user } = useSelector(state => state.auth)
@@ -54,7 +53,7 @@ const RegisterPage = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('/api/register', {
+            const { data } = await instance.post('/api/register', {
                 firstName,
                 lastName,
                 username,

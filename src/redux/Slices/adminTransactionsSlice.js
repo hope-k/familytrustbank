@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios'
+import instance from '../../axios';
 
 
 export const getAllTransactions = createAsyncThunk('/all-transactions', async () => {
     try {
-        const { data } = await axios.get('/api/all-transactions')
+        const { data } = await instance.get('/api/all-transactions')
         return data
     } catch (err) {
         return err.response.data
@@ -13,7 +13,7 @@ export const getAllTransactions = createAsyncThunk('/all-transactions', async ()
 export const updateTransactions = createAsyncThunk('/update-user', async (updateFields) => {
     try {
         const { id, value, field } = updateFields
-        const { data } = await axios.put('/api/update-transaction', {
+        const { data } = await instance.put('/api/update-transaction', {
             id: id,
             field: field,
             value: value
@@ -25,7 +25,7 @@ export const updateTransactions = createAsyncThunk('/update-user', async (update
 })
 export const deleteTransaction = createAsyncThunk('/delete-transaction', async ({ id }) => {
     try {
-        const { data } = await axios.delete(`/api/delete-transaction/?id=${id}`);
+        const { data } = await instance.delete(`/api/delete-transaction/?id=${id}`);
         return data
     } catch (err) {
         return err.response.data
@@ -33,7 +33,7 @@ export const deleteTransaction = createAsyncThunk('/delete-transaction', async (
 })
 export const adminDeposit = createAsyncThunk('/admin-deposit', async ({ user, status, accountId, transactionType, amount }) => {
     try {
-        const { data } = await axios.post(`/api/admin-deposit`, { user, status, accountId, transactionType, amount });
+        const { data } = await instance.post(`/api/admin-deposit`, { user, status, accountId, transactionType, amount });
         return data
     } catch (err) {
         return err.response.data

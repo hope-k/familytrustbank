@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios'
+import instance from '../../axios';
 
 
 export const getCurrentUser = createAsyncThunk('/currentUser', async () => {
     try {
-        const { data } = await axios.get('/api/me')
+        const { data } = await instance.get('/api/me')
         return data
     } catch (err) {
         return err.response.data
@@ -12,7 +12,7 @@ export const getCurrentUser = createAsyncThunk('/currentUser', async () => {
 });
 export const logout = createAsyncThunk('/logout', async () => {
     try {
-        const { data } = await axios.post('/api/logout')
+        const { data } = await instance.post('/api/logout')
         return data
     } catch (err) {
         return err.response.data

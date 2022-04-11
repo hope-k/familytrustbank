@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios'
+import instance from '../../axios';
 
 
 export const getAllUsers = createAsyncThunk('/all-users', async () => {
     try {
-        const { data } = await axios.get('/api/all-users')
+        const { data } = await instance.get('/api/all-users')
         return data
     } catch (err) {
         return err.response.data
@@ -12,7 +12,7 @@ export const getAllUsers = createAsyncThunk('/all-users', async () => {
 })
 export const deleteUser = createAsyncThunk('/delete-user', async ({ id }) => {
     try {
-        const { data } = await axios.delete(`/api/delete-user/?id=${id}`)
+        const { data } = await instance.delete(`/api/delete-user/?id=${id}`)
         return data
     } catch (err) {
         return err.response.data
@@ -21,7 +21,7 @@ export const deleteUser = createAsyncThunk('/delete-user', async ({ id }) => {
 export const updateUser = createAsyncThunk('/update-user', async (userUpdate) => {
     try {
         const { id, value, field } = userUpdate
-        const { data } = await axios.put('/api/update-user', {
+        const { data } = await instance.put('/api/update-user', {
             id: id,
             field: field,
             value: value
