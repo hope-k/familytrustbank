@@ -31,10 +31,10 @@ const currentUserSlice = createSlice({
     },
     extraReducers: {
     
-        [logout.fulfilled]: (state, action) => {
-            state.loggedOut = action.payload?.success
-            
-        }
+        //[logout.fulfilled]: (state, action) => {
+        //    state.loggedOut = action.payload?.success
+        //    
+        //}
     }
 
 })
