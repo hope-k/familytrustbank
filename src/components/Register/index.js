@@ -191,6 +191,7 @@ const RegisterPage = () => {
                                 placeholder=' '
                                 format='###-##-####'
                                 mask='*'
+                                value={ssn}
                                 type='text'
                                 name='ssn'
                                 onValueChange={(value) => setSsn(value.formattedValue)}
@@ -230,6 +231,7 @@ const RegisterPage = () => {
                                 prefix='+1'
                                 type='text'
                                 name='phone'
+                                value={phone}
                                 onValueChange={value => setPhone(value.formattedValue)}
                                 className='z-[1] tracking-wider appearance-none bg-transparent peer pb-2 border-b border-gray-800 outline-none mb-6 placeholder-transparent focus-within:border-[#161d3f] focus-within:border-b-2'
 

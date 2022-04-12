@@ -25,9 +25,9 @@ const LoginPage = () => {
     useEffect(() => {
         if (!loading) {
             if (isAuthenticated && user?.role === 'user') {
-                window.location.href = ('/account')
+                window.location.href = ('/account/dashboard')
             } else if (user?.role === 'admin'&& isAuthenticated) {
-                window.location.href = '/admin'
+                window.location.href = '/admin/users'
             }
         }
         if (error) {
