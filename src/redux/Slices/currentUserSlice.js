@@ -34,7 +34,7 @@ const currentUserSlice = createSlice({
         [logout.fulfilled]: (state, action) => {
             state.loggedOut = action.payload?.success
             if(action.payload?.success){
-                localStorage.clear()
+                window.localStorage.clear()
                 
             }
             
