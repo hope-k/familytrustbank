@@ -166,11 +166,11 @@ const MobileNav = ({ open, toggleOpen }) => {
                                 )
                             }
 
-                            <div onClick={() => { isAuthenticated && logoutUser(); toggleOpen() }} className='px-6 py-[0.62rem] mb-6 flex'>
+                            <div onClick={() => toggleOpen() } className='px-6 py-[0.62rem] mb-6 flex'>
 
                                 {
                                     isAuthenticated ?
-                                        <div className=' flex items-center'  >
+                                        <div className=' flex items-center' onClick={() => logoutUser() } >
                                             <HiOutlineLogout className='mr-3 text-2xl text-red-600' />
                                             Sign Out
                                         </div> :
