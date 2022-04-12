@@ -24,6 +24,7 @@ const Header = () => {
     }
     const logoutUser = () => {
         dispatch(logout());
+        window.location.reload()
 
     }
 
