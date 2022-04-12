@@ -5,7 +5,7 @@ import { LocationMarkerIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserCircleIcon, ChevronDownIcon } from '@heroicons/react/outline'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../../redux/Slices/currentUserSlice'
+import { logout } from '../../redux/Slices/authSlice'
 import gsap from 'gsap'
 
 const Header = () => {

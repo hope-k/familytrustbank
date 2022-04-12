@@ -3,16 +3,16 @@ import instance from '../../axios';
 
 
 
-export const logout = createAsyncThunk('/logout', async () => {
-    try {
-        const { data } = await instance.post('/api/logout')
-        console.log(data)
-
-        return data
-    } catch (err) {
-        return err.response.data
-    }
-});
+//export const logout = createAsyncThunk('/logout', async () => {
+//    try {
+//        const { data } = await instance.post('/api/logout')
+//        console.log(data)
+//
+//        return data
+//    } catch (err) {
+//        return err.response.data
+//    }
+//});
 
 
 
@@ -33,10 +33,6 @@ const currentUserSlice = createSlice({
     
         [logout.fulfilled]: (state, action) => {
             state.loggedOut = action.payload?.success
-            if(action.payload?.success){
-                window.localStorage.clear()
-                
-            }
             
         }
     }

@@ -7,7 +7,7 @@ import { HiOutlineLogout } from 'react-icons/hi'
 import { VscRemote } from 'react-icons/vsc'
 import { GiChecklist } from 'react-icons/gi'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
-import { logout } from '../../redux/Slices/currentUserSlice'
+import { logout } from '../../redux/Slices/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const DashboardNav = () => {

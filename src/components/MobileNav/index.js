@@ -9,7 +9,7 @@ import { HiOutlineLogout } from 'react-icons/hi'
 import { BsEnvelope, BsCashCoin, BsQuestionCircle } from 'react-icons/bs'
 import { VscRemote } from 'react-icons/vsc'
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../redux/Slices/currentUserSlice'
+import { logout } from '../../redux/Slices/authSlice'
 
 
 const MobileNav = ({ open, toggleOpen }) => {

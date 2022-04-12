@@ -27,7 +27,7 @@ const initialState = {
     error: null,
     loading: false,
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
-    
+
 }
 
 const authSlice = createSlice({
@@ -36,6 +36,9 @@ const authSlice = createSlice({
     reducers: {
         resetAuthError: (state) => {
             state.error = null
+        },
+        logout: (state) => {
+            window.localStorage.clear()
         }
 
     },
@@ -44,7 +47,7 @@ const authSlice = createSlice({
             state.loading = false
             state.isAuthenticated = action.payload?.isAuthenticated || false
             state.user = action.payload?.user || null
-            state.error = action?.payload?.error?.message 
+            state.error = action?.payload?.error?.message
 
             localStorage.setItem('user', JSON.stringify(state.user))
             localStorage.setItem('isAuthenticated', JSON.stringify(state.isAuthenticated))
@@ -60,7 +63,7 @@ const authSlice = createSlice({
 
 })
 
-export const { resetAuthError } = authSlice.actions
+export const { resetAuthError,logout} = authSlice.actions
 export default authSlice.reducer
 
 

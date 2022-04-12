@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/Slices/currentUserSlice';
+import { logout } from '../../redux/Slices/authSlice'
 
 
 const AdminDashboard = () => {

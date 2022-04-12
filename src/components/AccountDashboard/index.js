@@ -16,7 +16,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import NumberFormat from 'react-number-format'
 import { getMyAccounts } from '../../redux/Slices/accountsSlice'
 import gsap from 'gsap'
-import { logout } from '../../redux/Slices/currentUserSlice'
 import { useNavigate } from 'react-router-dom'
 import { getMyStats } from '../../redux/Slices/statsSlice'
 import { getMyTransactions } from '../../redux/Slices/transactionsSlice'
@@ -24,7 +23,7 @@ import moment from 'moment'
 import ClockLoader from 'react-spinners/ClockLoader'
 import { getMyMessages } from '../../redux/Slices/messagesSlice'
 import accounting from 'accounting'
-
+import { logout } from '../../redux/Slices/authSlice'
 
 const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
     const navigate = useNavigate()
