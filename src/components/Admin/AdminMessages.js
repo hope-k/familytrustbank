@@ -75,7 +75,7 @@ const AdminMessages = () => {
 
     const rows = []
 
-    messages && messages.forEach(message => {
+    messages && messages?.forEach(message => {
         rows.push({
             id: message?._id,
             title: message?.title,
@@ -174,13 +174,10 @@ const AdminMessages = () => {
                                 placeholder=' '
                                 onChange={(e) => setMessageID(e.target.value)}
                                 value={messageID}
-
-
                             />
                             <label className='px-3 font-semibold text-black lg:flex duration-200 transition-all ease-in-out absolute top-[-1.5rem] peer-focus:top-[-1.5rem] peer-focus:text-sm peer-focus:text-red-500 peer-focus:font-bold  peer-placeholder-shown:top-[0] peer-placeholder-shown:text-base text-sm pointer-events-none'>
                                 MESSAGE ID
                             </label>
-
                         </div>
                         <button type='submit' className='text-sm bg-red-400 h-fit w-fit p-1 font-semibold rounded-lg'>
                             DELETE MESSAGE

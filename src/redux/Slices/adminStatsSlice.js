@@ -64,7 +64,6 @@ const adminStatSlice = createSlice({
         [getAllStats.fulfilled]: (state, action) => {
             state.loading = false
             state.stats = action.payload?.stats
-            state.error = action?.payload?.error?.message
         },
         [getAllStats.pending]: (state, action) => {
             state.loading = true

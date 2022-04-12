@@ -70,7 +70,6 @@ const adminMessageSlice = createSlice({
         [getAllMessages.fulfilled]: (state, action) => {
             state.loading = false
             state.messages = action.payload?.messages
-            state.error = action?.payload?.error?.message
         },
         [getAllMessages.pending]: (state, action) => {
             state.loading = true

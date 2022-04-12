@@ -9,6 +9,7 @@ import { useNotifications } from 'reapop';
 const Users = () => {
     const navigate = useNavigate()
     const { success, error, users } = useSelector(state => state.users)
+    const { isAuthenticated } = useSelector(state => state.auth)
     const { notify } = useNotifications()
     const [editField, setEditField] = useState('');
     const [editID, setEditID] = useState('')
@@ -18,6 +19,7 @@ const Users = () => {
 
     useEffect(() => {
         dispatch(getAllUsers())
+
 
         if (error) {
             notify(error, 'error', { dismissAfter: 5000 })
@@ -29,9 +31,9 @@ const Users = () => {
             notify(`Action was successful`, 'success')
         }
 
-    }, [dispatch, error, success, notify, navigate]);
+    }, [dispatch, error, success, notify, navigate, isAuthenticated]);
 
- 
+
 
     useEffect(() => {
         if (editField && editValue && editID) {

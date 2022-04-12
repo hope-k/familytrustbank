@@ -73,7 +73,7 @@ const AdminBankAccount = () => {
 
     const rows = []
 
-    accounts && accounts.forEach(account => {
+    accounts && accounts?.forEach(account => {
         rows.push({
             id: account?._id,
             accountType: account?.accountType,

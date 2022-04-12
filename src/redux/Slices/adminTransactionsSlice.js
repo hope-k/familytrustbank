@@ -73,7 +73,6 @@ const adminTransactionsSlice = createSlice({
         [getAllTransactions.fulfilled]: (state, action) => {
             state.loading = false
             state.transactions = action.payload?.transactions
-            state.error = action?.payload?.error?.message
         },
         [getAllTransactions.pending]: (state, action) => {
             state.loading = true

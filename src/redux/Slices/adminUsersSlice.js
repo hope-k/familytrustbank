@@ -65,7 +65,6 @@ const adminUsersSlice = createSlice({
         [getAllUsers.fulfilled]: (state, action) => {
             state.loading = false
             state.users = action.payload?.users
-            state.error = action?.payload?.error?.message
         },
         [getAllUsers.pending]: (state, action) => {
             state.loading = true

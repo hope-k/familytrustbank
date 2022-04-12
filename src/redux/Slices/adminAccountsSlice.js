@@ -70,7 +70,6 @@ const adminAccountsSlice = createSlice({
         [getAllAccounts.fulfilled]: (state, action) => {
             state.accounts = action?.payload?.accounts
             state.loading = false
-            state.error = action?.payload?.error?.message
         },
         [getAllAccounts.pending]: (state, action) => {
             state.loading = true
