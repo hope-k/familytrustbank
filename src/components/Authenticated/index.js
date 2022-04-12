@@ -4,9 +4,9 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 const Authenticated = ({ auth, role }) => {
 
-    if (auth && role === 'user') {
+    if (auth === true && role === 'user') {
         return <Navigate to={'/account/dashboard'} />
-    } else if (auth && role === 'admin') {
+    } else if (auth  === true&& role === 'admin') {
         return <Navigate to={'/admin/users'} />
     } else {
         return <Outlet />

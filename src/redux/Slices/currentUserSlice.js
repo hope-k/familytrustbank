@@ -2,17 +2,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getCurrentUser = createAsyncThunk('/currentUser', async () => {
-    try {
-        const { data } = await instance.get('/api/me')
-        return data
-    } catch (err) {
-        return err.response.data
-    }
-});
+
 export const logout = createAsyncThunk('/logout', async () => {
     try {
         const { data } = await instance.post('/api/logout')
+        console.log(data)
+
         return data
     } catch (err) {
         return err.response.data
@@ -25,9 +20,7 @@ export const logout = createAsyncThunk('/logout', async () => {
 
 
 const initialState = {
-    user: null,
-    loading: true,
-    isAuthenticated: false,
+    loggedOut: null
 }
 
 const currentUserSlice = createSlice({
@@ -37,19 +30,13 @@ const currentUserSlice = createSlice({
 
     },
     extraReducers: {
-        [getCurrentUser.fulfilled]: (state, action) => {
-            state.user = action?.payload?.user
-            state.isAuthenticated = action?.payload?.isAuthenticated || false
-            state.loading = false
-        }, 
-        [getCurrentUser.pending]: (state, action) => {
-            state.loading = true
-        }, 
-        [getCurrentUser.rejected]: (state, action) => {
-            state.loading = false
-        },
+    
         [logout.fulfilled]: (state, action) => {
-            state.isAuthenticated = action.payload?.success && false
+            state.loggedOut = action.payload?.success
+            if(action.payload?.success){
+                localStorage.removeItem('user')
+                localStorage.removeItem('isAuthenticated')
+            }
             
         }
     }

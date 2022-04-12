@@ -57,7 +57,7 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
     }, [dispatch]);
 
 
-    const { user } = useSelector(state => state.user);
+    const { user } = useSelector(state => state.auth);
     const { stats } = useSelector(state => state.stats);
     const { transactions } = useSelector(state => state.transactions);
     const { messages } = useSelector(state => state.messages);
@@ -97,8 +97,8 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
         dispatch(logout());
         navigate(0)
     }
-    const recentTransactions = transactions.slice(0, 4)
-    const recentMessages = messages && messages.slice(0, 2)
+    const recentTransactions = transactions && transactions.slice(0, 4)
+    const recentMessages = messages && messages && messages.slice(0, 2)
 
     return (
         <>
@@ -143,7 +143,7 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
                                 <div className='flex flex-wrap justify-between'>
 
                                     {
-                                        !loading && !accounts.length ? (
+                                        !loading && !accounts?.length ? (
                                             <div className='w-full p-10 text-2xl text-red-600 bg-gray-200 rounded-3xl font-extralight'>!!NO ACCOUNTS OPENED CONTACT ADMIN!!</div>
                                         ) :
 
@@ -189,7 +189,7 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
                                             <SearchIcon className='w-6' />
                                         </div>
                                         {
-                                            !loading && !recentTransactions.length ? (
+                                            !loading && !recentTransactions?.length ? (
                                                 <div className="px-2 flex items-center justify-center p-4 h-full">
                                                     <div className=' bg-gray-200 p-4 rounded-3xl'>
                                                         No Recent Transactions

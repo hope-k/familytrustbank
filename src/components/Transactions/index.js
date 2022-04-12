@@ -31,7 +31,7 @@ const Transactions = () => {
                         </div>
 
                         {
-                            !loading && !transactions.length ? (
+                            !loading && !transactions?.length ? (
                                 <div className="px-2 flex items-center justify-center p-4 h-full">
                                     <div className=' bg-gray-200 p-4 rounded-3xl'>
                                         No Transactions

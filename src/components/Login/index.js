@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNotifications } from 'reapop'
 import { resetAuthError } from '../../redux/Slices/authSlice'
 import FadeLoader from 'react-spinners/FadeLoader'
-
+import { useNavigate } from 'react-router-dom'
 
 
 const LoginPage = () => {
@@ -17,19 +17,14 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate()
 
     const togglePasswordVisible = () => {
         setPasswordVisible(!passwordVisible);
     }
 
     useEffect(() => {
-        if (!loading) {
-            if (isAuthenticated && user?.role === 'user') {
-                window.location.href = ('/account/dashboard')
-            } else if (user?.role === 'admin'&& isAuthenticated) {
-                window.location.href = '/admin/users'
-            }
-        }
+
         if (error) {
             notify(error, { title: 'Authentication Failure', showDismissButton: true, status: error.includes('processed') ? 'loading' : 'error' });
             dispatch(resetAuthError());
@@ -51,9 +46,15 @@ const LoginPage = () => {
             password
         }
         dispatch(login(userObj));
-
-
+        
     }
+    useEffect(() => {
+        if (isAuthenticated && user?.role === 'user') {
+            navigate('/account/dashboard')
+        } else if (user?.role === 'admin' && isAuthenticated) {
+            navigate('/admin/users')
+        }
+    })
     return (
         <div className='relative' id='loginPage'>
             <div className="loginBg"></div>

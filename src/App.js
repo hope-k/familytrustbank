@@ -33,12 +33,11 @@ function App() {
   }
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCurrentUser())
-  }, [dispatch])
 
 
-  const { isAuthenticated, loading, user } = useSelector(state => state.user);
+
+
+  const { isAuthenticated, loading, user } = useSelector(state => state.auth);
   const { notifications, dismissNotification } = useNotifications();
 
   useEffect(() => {
@@ -65,13 +64,15 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (isAuthenticated && user?.role === 'user') {
-      navigate('/account/dashboard')
-    } else if (isAuthenticated && user?.role === 'admin') {
+    console.log(isAuthenticated)
+
+    if (isAuthenticated === true && user?.role === 'user') {
+     navigate('/account/dashboard')
+    } else if (isAuthenticated === true && user?.role === 'admin') {
       navigate('/admin/users')
     }
 
-  }, [isAuthenticated, user]);
+  }, []);
 
 
   return (

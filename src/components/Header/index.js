@@ -11,7 +11,7 @@ import gsap from 'gsap'
 const Header = () => {
     const [profileOpen, setProfileOpen] = useState(false)
     const dispatch = useDispatch()
-    const { user, loading, isAuthenticated } = useSelector(state => state.user)
+    const { user, loading, isAuthenticated } = useSelector(state => state.auth)
     const navigate = useNavigate()
     const location = useLocation()
     const [open, setOpen] = useState(false);

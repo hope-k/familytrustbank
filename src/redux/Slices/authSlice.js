@@ -23,10 +23,10 @@ export const login = createAsyncThunk('/login', async (userObj) => {
 
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: localStorage.getItem('isAuthenticated') ? JSON.parse(localStorage.getItem('isAuthenticated')) : false,
     error: null,
     loading: false,
-    user: null
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
     
 }
 
@@ -45,6 +45,9 @@ const authSlice = createSlice({
             state.isAuthenticated = action.payload?.isAuthenticated || false
             state.user = action.payload?.user
             state.error = action?.payload?.error?.message 
+
+            localStorage.setItem('user', JSON.stringify(state.user))
+            localStorage.setItem('isAuthenticated', JSON.stringify(state.isAuthenticated))
         },
         [login.pending]: (state, action) => {
             state.loading = true
