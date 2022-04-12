@@ -24,7 +24,6 @@ const Header = () => {
     }
     const logoutUser = () => {
         dispatch(logout());
-        navigate(0)
 
     }
 
