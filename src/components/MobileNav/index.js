@@ -36,6 +36,8 @@ const MobileNav = ({ open, toggleOpen }) => {
     const logoutUser = () => {
         dispatch(logout());
         navigate(0)
+        navigate('/sign-in')
+
     }
 
 
@@ -68,7 +70,7 @@ const MobileNav = ({ open, toggleOpen }) => {
                 </div>
             </div>
             {
-                user && user?.role.includes('admin') ?
+                user && user?.role?.includes('admin') ?
                     <div className='container  w-full  flex-col flex justify-center text-gray-600 font-semibold items-center duration-200 h-full'>
                         <Link onClick={() => toggleOpen()} to={'/admin/users'} className={' rounded-md duration-500  p-2 my-4 ' + (location.pathname === '/admin/users' && 'bg-teal-600 text-white  ')}>Users</Link>
                         <Link onClick={() => toggleOpen()} to={'/admin/transactions'} className={' rounded-md  p-2 my-4 duration-500 ' + (location.pathname === '/admin/transactions' && 'bg-teal-600 text-white ')}>Transactions</Link>

@@ -18,6 +18,8 @@ const DashboardNav = () => {
   const logoutUser = () => {
     dispatch(logout());
     navigate(0)
+    navigate('/sign-in')
+
   }
   
 

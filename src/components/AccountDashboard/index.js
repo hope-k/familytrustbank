@@ -96,6 +96,8 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
     const logoutUser = () => {
         dispatch(logout());
         navigate(0)
+        navigate('/sign-in')
+
     }
     const recentTransactions = transactions && transactions.slice(0, 4)
     const recentMessages = messages && messages && messages.slice(0, 2)

@@ -25,6 +25,8 @@ const Header = () => {
     const logoutUser = () => {
         dispatch(logout());
         navigate(0)
+        navigate('/sign-in')
+
     }
 
 
@@ -75,7 +77,7 @@ const Header = () => {
                     </div>
                 )
             }
-            <div className={'drop-shadow-xl border-b-[.4px] border-slate-500 flex font-base text-base sticky top-0 z-[60] ' + (isAuthenticated ? ' bg-transparent border-none ' : ' bg-[#070707] ') + (isAuthenticated && user?.role.includes('admin') && ' bg-gray-800 ')}>
+            <div className={'drop-shadow-xl border-b-[.4px] border-slate-500 flex font-base text-base sticky top-0 z-[60] ' + (isAuthenticated ? ' bg-transparent border-none ' : ' bg-[#070707] ') + (isAuthenticated && user?.role?.includes('admin') && ' bg-gray-800 ')}>
                 <div className='lg:hidden px-4 md:px-10 flex p-3 justify-between w-full items-center'>
                     <div className='w-[2.5rem]' onClick={() => toggleOpen()}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#ccc" >
@@ -87,7 +89,7 @@ const Header = () => {
 
                             {
                                 !loading &&
-                                    user ? (
+                                    isAuthenticated ? (
                                     <div onClick={() => toggleProfileOpen()} >
                                         <h1 className='px-4'>
                                             {user?.firstName}
