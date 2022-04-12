@@ -64,7 +64,6 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    console.log(isAuthenticated)
 
     if (isAuthenticated === true && user?.role === 'user') {
      navigate('/account/dashboard')
@@ -72,7 +71,7 @@ function App() {
       navigate('/admin/users')
     }
 
-  }, []);
+  }, [isAuthenticated, user?.role ]);
 
 
   return (

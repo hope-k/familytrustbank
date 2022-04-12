@@ -35,7 +35,7 @@ const MobileNav = ({ open, toggleOpen }) => {
     }, [open, t1])
     const logoutUser = () => {
         dispatch(logout());
-        navigate('/sign-in')
+        navigate(0)
 
     }
 

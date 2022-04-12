@@ -11,7 +11,6 @@ const AdminDashboard = () => {
     const logoutUser = () => {
         dispatch(logout());
         navigate(0)
-        navigate('/sign-in')
     }
 
     const location = useLocation();

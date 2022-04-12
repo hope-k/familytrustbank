@@ -54,7 +54,7 @@ const LoginPage = () => {
         } else if (user?.role === 'admin' && isAuthenticated) {
             navigate('/admin/users')
         }
-    })
+    },[isAuthenticated, user?.role])
     return (
         <div className='relative' id='loginPage'>
             <div className="loginBg"></div>
