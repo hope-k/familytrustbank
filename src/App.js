@@ -94,13 +94,13 @@ function App() {
           //admin routes create protected admin routes
         }
 
-        <Route path='/*' element={<Authenticated auth={isAuthenticated} role={user?.role} />}>
+        <Route path='/' element={<Authenticated auth={isAuthenticated} role={user?.role} />}>
           <Route path="sign-in" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
 
 
-        <Route path='/*' element={<ProtectedRoute auth={isAuthenticated} authLoading={loading} role={user?.role} />}>
+        <Route path='/' element={<ProtectedRoute auth={isAuthenticated} authLoading={loading} role={user?.role} />}>
           <Route path="account" element={<DashboardNav />}>
             <Route path="dashboard" element={<AccountDashboard profileDropdown={profileDropdown} toggleProfileDropdown={toggleProfileDropdown} />} />
             <Route path="transfer" element={<Transfer />} />
@@ -110,7 +110,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path='/*' element={<ProtectedAdminRoute role={user?.role} authLoading={loading} auth={isAuthenticated} />}>
+        <Route path='/' element={<ProtectedAdminRoute role={user?.role} authLoading={loading} auth={isAuthenticated} />}>
           <Route path='admin' element={<AdminDashboard />}>
             <Route path='users' element={<Users />} />
             <Route path='transactions' element={<AdminTransactions />} />
