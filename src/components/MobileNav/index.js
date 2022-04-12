@@ -15,7 +15,7 @@ import { logout } from '../../redux/Slices/currentUserSlice'
 const MobileNav = ({ open, toggleOpen }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { isAuthenticated, user } = useSelector(state => state.user)
+    const { isAuthenticated, user } = useSelector(state => state.auth)
     const location = useLocation()
     const t1 = React.useRef()
     useLayoutEffect(() => {
