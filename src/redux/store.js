@@ -12,39 +12,23 @@ import adminTransactionsSlice from './Slices/adminTransactionsSlice';
 import adminStatsSlice from './Slices/adminStatsSlice';
 import adminAccountsSlice from './Slices/adminAccountsSlice';
 import adminMessagesSlice from './Slices/adminMessagesSlice';
-import { persistReducer } from 'redux-persist'
-import thunk from 'redux-thunk'
-import storage from 'redux-persist/lib/storage';
-import { combineReducers } from 'redux';
-
-const persistConfig = {
-    key: 'root',
-    storage
-};
-
-const reducers = combineReducers({
-    auth: authSlice,
-    user: currentUserSlice,
-    accounts: accountsSlice,
-    stats: statsSlice,
-    transactions: transactionsSlice,
-    messages: messagesSlice,
-    transfer: transferSlice,
-    users: adminUsersSlice,
-    adminTransactions: adminTransactionsSlice,
-    adminStat: adminStatsSlice,
-    adminAccounts: adminAccountsSlice,
-    adminMessage: adminMessagesSlice
-})
-
-
-const persistedReducer = persistReducer(persistConfig, reducers)
-
-
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    middleware: [thunk, logger]
+    reducer: {
+        auth: authSlice,
+        user: currentUserSlice,
+        accounts: accountsSlice,
+        stats: statsSlice,
+        transactions: transactionsSlice,
+        messages: messagesSlice,
+        transfer: transferSlice,
+        users: adminUsersSlice,
+        adminTransactions: adminTransactionsSlice,
+        adminStat: adminStatsSlice,
+        adminAccounts: adminAccountsSlice,
+        adminMessage: adminMessagesSlice
+
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
 
 })
-

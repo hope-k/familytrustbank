@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios'
+import Cookies from 'js-cookie'
+
+
 
 export const login = createAsyncThunk('/login', async (userObj) => {
     try {
@@ -9,6 +12,15 @@ export const login = createAsyncThunk('/login', async (userObj) => {
             password
         })
         return data
+    } catch (err) {
+        return err.response.data
+    }
+});
+export const logout = createAsyncThunk('/logout', async () => {
+    window.localStorage.clear();
+    try {
+        await instance.post('/api/logout')
+
     } catch (err) {
         return err.response.data
     }
@@ -23,10 +35,10 @@ export const login = createAsyncThunk('/login', async (userObj) => {
 
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: localStorage.getItem('isAuthenticated') ? JSON.parse(localStorage.getItem('isAuthenticated')) : false,
     error: null,
     loading: false,
-    user: null
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
 
 }
 
@@ -37,9 +49,6 @@ const authSlice = createSlice({
         resetAuthError: (state) => {
             state.error = null
         },
-        logout: (state) => {
-            window.localStorage.clear()
-        }
 
     },
     extraReducers: {
@@ -49,7 +58,8 @@ const authSlice = createSlice({
             state.user = action.payload?.user || null
             state.error = action?.payload?.error?.message
 
-
+            localStorage.setItem('user', JSON.stringify(state.user))
+            localStorage.setItem('isAuthenticated', JSON.stringify(state.isAuthenticated))
         },
         [login.pending]: (state, action) => {
             state.loading = true
@@ -62,7 +72,7 @@ const authSlice = createSlice({
 
 })
 
-export const { resetAuthError,logout} = authSlice.actions
+export const { resetAuthError } = authSlice.actions
 export default authSlice.reducer
 
 
