@@ -3,11 +3,16 @@ import axios from 'axios'
 import instance from '../../axios';
 
 
-export const makeTransfer = createAsyncThunk('/makeTransfer', async (transferDetails) => {
+export const makeTransfer = createAsyncThunk('/makeTransfer', async (transferDetails, {getState}) => {
     const {payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo} = transferDetails
-    console.log('THUNK', transferDetails)
     try {
-        const { data } = await instance.post('/api/add-transaction', { payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo })
+        const state = getState();
+        const token = state.auth?.token
+        const { data } = await instance.post('/api/add-transaction', { payeeAccountNumber, payeeRoutingNumber, confirmAccountNumber, amount, accountId, memo }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data

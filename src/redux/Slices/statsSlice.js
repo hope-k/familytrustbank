@@ -3,10 +3,16 @@ import instance from '../../axios';
 
 
 
-export const getMyStats = createAsyncThunk('/stats', async () => {
+export const getMyStats = createAsyncThunk('/stats', async (_, {getState}) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
 
-        const { data } = await instance.get('/api/stats');
+        const { data } = await instance.get('/api/stats',{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data

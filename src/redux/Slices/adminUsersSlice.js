@@ -2,29 +2,47 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getAllUsers = createAsyncThunk('/all-users', async () => {
+export const getAllUsers = createAsyncThunk('/all-users', async (_, { getState }) => {
     try {
-        const { data } = await instance.get('/api/all-users')
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/all-users', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const deleteUser = createAsyncThunk('/delete-user', async ({ id }) => {
+export const deleteUser = createAsyncThunk('/delete-user', async ({ id }, { getState }) => {
     try {
-        const { data } = await instance.delete(`/api/delete-user/?id=${id}`)
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.delete(`/api/delete-user/?id=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const updateUser = createAsyncThunk('/update-user', async (userUpdate) => {
+export const updateUser = createAsyncThunk('/update-user', async (userUpdate, { getState }) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
         const { id, value, field } = userUpdate
         const { data } = await instance.put('/api/update-user', {
             id: id,
             field: field,
             value: value
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return data
     } catch (err) {
@@ -75,7 +93,7 @@ const adminUsersSlice = createSlice({
         [updateUser.fulfilled]: (state, action) => {
             state.success = action.payload?.success
             state.error = action.payload?.error?.message
-        },        
+        },
         [deleteUser.fulfilled]: (state, action) => {
             state.success = action.payload?.success
             state.error = action.payload?.error?.message

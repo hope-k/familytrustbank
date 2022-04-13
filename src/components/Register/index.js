@@ -12,7 +12,7 @@ import NumberFormat from 'react-number-format'
 import instance from '../../axios'
 
 const RegisterPage = () => {
-    const { error, loading, isAuthenticated, user } = useSelector(state => state.auth)
+    const { error, loading, isAuthenticated, user, token } = useSelector(state => state.auth)
     const { notify } = useNotifications()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -62,6 +62,10 @@ const RegisterPage = () => {
                 dateOfBirth,
                 ssn,
                 address
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token && token}`
+                }
             });
             if (data?.success) {
                 notify('Request for account is being processed you will be contacted by the bank', 'success')

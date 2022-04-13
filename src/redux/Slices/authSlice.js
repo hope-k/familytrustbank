@@ -38,7 +38,8 @@ const initialState = {
     isAuthenticated: localStorage.getItem('isAuthenticated') ? JSON.parse(localStorage.getItem('isAuthenticated')) : false,
     error: null,
     loading: false,
-    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {},
+    token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
 
 }
 
@@ -57,9 +58,11 @@ const authSlice = createSlice({
             state.isAuthenticated = action.payload?.isAuthenticated || false
             state.user = action.payload?.user || null
             state.error = action?.payload?.error?.message
+            state.token = action.payload?.token || null
 
             localStorage.setItem('user', JSON.stringify(state.user))
             localStorage.setItem('isAuthenticated', JSON.stringify(state.isAuthenticated))
+            localStorage.setItem('token', JSON.stringify(state.token))
         },
         [login.pending]: (state, action) => {
             state.loading = true

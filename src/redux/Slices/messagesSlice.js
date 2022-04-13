@@ -3,10 +3,16 @@ import instance from '../../axios';
 
 
 
-export const getMyMessages = createAsyncThunk('/messages', async () => {
+export const getMyMessages = createAsyncThunk('/messages', async (_,{getState}) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
 
-        const { data } = await instance.get('/api/messages');
+        const { data } = await instance.get('/api/messages', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data

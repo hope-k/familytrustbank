@@ -2,38 +2,62 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getAllTransactions = createAsyncThunk('/all-transactions', async () => {
+export const getAllTransactions = createAsyncThunk('/all-transactions', async (_, { getState }) => {
     try {
-        const { data } = await instance.get('/api/all-transactions')
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/all-transactions', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const updateTransactions = createAsyncThunk('/update-user', async (updateFields) => {
+export const updateTransactions = createAsyncThunk('/update-user', async (updateFields, { getState }) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
         const { id, value, field } = updateFields
         const { data } = await instance.put('/api/update-transaction', {
             id: id,
             field: field,
             value: value
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const deleteTransaction = createAsyncThunk('/delete-transaction', async ({ id }) => {
+export const deleteTransaction = createAsyncThunk('/delete-transaction', async ({ id }, { getState }) => {
     try {
-        const { data } = await instance.delete(`/api/delete-transaction/?id=${id}`);
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.delete(`/api/delete-transaction/?id=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const adminDeposit = createAsyncThunk('/admin-deposit', async ({ user, status, accountId, transactionType, amount }) => {
+export const adminDeposit = createAsyncThunk('/admin-deposit', async ({ user, status, accountId, transactionType, amount }, { getState }) => {
     try {
-        const { data } = await instance.post(`/api/admin-deposit`, { user, status, accountId, transactionType, amount });
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.post(`/api/admin-deposit`, { user, status, accountId, transactionType, amount }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data

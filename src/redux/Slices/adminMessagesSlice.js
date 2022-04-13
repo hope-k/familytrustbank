@@ -2,34 +2,59 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getAllMessages = createAsyncThunk('/all-messages', async () => {
+export const getAllMessages = createAsyncThunk('/all-messages', async (_, { getState }) => {
     try {
-        const { data } = await instance.get('/api/all-messages')
+        const state = getState()
+        const token = state.auth?.token
+
+        const { data } = await instance.get('/api/all-messages', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const addMessage = createAsyncThunk('/add-message', async ({ title, text, user }) => {
+export const addMessage = createAsyncThunk('/add-message', async ({ title, text, user }, { getState }) => {
     try {
-        const { data } = await instance.post('/api/add-message', { title, text, user });
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.post('/api/add-message', { title, text, user }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const deleteMessage = createAsyncThunk('/delete-message', async ({ id }) => {
+export const deleteMessage = createAsyncThunk('/delete-message', async ({ id }, { getState }) => {
     try {
-        const { data } = await instance.delete(`/api/delete-message/?id=${id}`);
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.delete(`/api/delete-message/?id=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const updateMessage = createAsyncThunk('/update-message', async ({ field, id, value }) => {
+export const updateMessage = createAsyncThunk('/update-message', async ({ field, id, value }, { getState }) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
         const { data } = await instance.put(`/api/update-message/`, {
             id, field, value
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return data
     } catch (err) {

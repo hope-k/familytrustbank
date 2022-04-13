@@ -3,9 +3,15 @@ import axios from 'axios'
 import instance from '../../axios';
 
 
-export const getMyTransactions = createAsyncThunk('/getTransactions', async () => {
+export const getMyTransactions = createAsyncThunk('/getTransactions', async (_, {getState}) => {
     try {
-        const { data } = await instance.get('/api/transactions')
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/transactions', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data

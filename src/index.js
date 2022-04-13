@@ -4,8 +4,13 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import { store } from './redux/store';
-import { Provider } from 'react-redux';
 import { NotificationsProvider } from 'reapop'
+import axios from 'axios'
+import { Provider, useSelector } from 'react-redux';
+
+
+
+
 
 
 
@@ -15,9 +20,7 @@ ReactDOM.render(
       <Provider store={store}>
         <NotificationsProvider>
           <App />
-
         </NotificationsProvider>
-
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

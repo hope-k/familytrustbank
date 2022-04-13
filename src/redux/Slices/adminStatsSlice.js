@@ -2,29 +2,47 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getAllStats = createAsyncThunk('/all-stats', async () => {
+export const getAllStats = createAsyncThunk('/all-stats', async (_, {getState}) => {
     try {
-        const { data } = await instance.get('/api/all-stats')
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/all-stats', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const addStat = createAsyncThunk('/add-stat', async (statObj) => {
+export const addStat = createAsyncThunk('/add-stat', async (statObj, {getState}) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
         const { incomeYear, incomeAmount, expenseYear, expenseAmount, user } = statObj
         const { data } = await instance.post('/api/add-stat', {
             incomeYear, incomeAmount, expenseYear, expenseAmount, user
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return data
     } catch (err) {
         return err.response.data
     }
 })
-export const deleteStat = createAsyncThunk('/delete-stat', async (deleteID) => {
+export const deleteStat = createAsyncThunk('/delete-stat', async (deleteID, {getState}) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
         const { statID } = deleteID
-        const { data } = await instance.delete(`/api/delete-stat/?id=${statID}`);
+        const { data } = await instance.delete(`/api/delete-stat/?id=${statID}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return data
     } catch (err) {
         return err.response.data

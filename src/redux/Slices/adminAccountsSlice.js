@@ -2,38 +2,62 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from '../../axios';
 
 
-export const getAllAccounts = createAsyncThunk('/all-accounts', async () => {
+export const getAllAccounts = createAsyncThunk('/all-accounts', async (_, { getState }) => {
     try {
-        const { data } = await instance.get('/api/all-accounts')
-        return data
-    } catch (err) {
-        return err.response.data
-    }
-});
-export const updateAccount = createAsyncThunk('/update-account', async ({id, field, value}) => {
-    try {
-        const { data } = await instance.put('/api/update-account', {
-            field, value, id
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/all-accounts', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
         return data
     } catch (err) {
         return err.response.data
     }
 });
-export const deleteAccount = createAsyncThunk('/delete-account', async ({ id }) => {
+export const updateAccount = createAsyncThunk('/update-account', async ({ id, field, value }, { getState }) => {
     try {
-        const { data } = await instance.delete(`/api/delete-account/?id=${id}`)
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.put('/api/update-account', {
+            field, value, id
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
     }
 });
-export const createAccount = createAsyncThunk('/create-account', async ({ accountType, balance, user }) => {
+export const deleteAccount = createAsyncThunk('/delete-account', async ({ id }, { getState }) => {
     try {
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.delete(`/api/delete-account/?id=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return data
+    } catch (err) {
+        return err.response.data
+    }
+});
+export const createAccount = createAsyncThunk('/create-account', async ({ accountType, balance, user }, { getState }) => {
+    try {
+        const state = getState()
+        const token = state.auth?.token
         const { data } = await instance.post(`/api/add-account`, {
             accountType,
             balance,
             user
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
         return data
     } catch (err) {

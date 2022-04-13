@@ -26,9 +26,10 @@ import accounting from 'accounting'
 import { logout } from '../../redux/Slices/authSlice'
 
 const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
+
     const navigate = useNavigate()
     const t1 = useRef()
-    const { isAuthenticated } = useSelector(state => state.auth)
+    const { isAuthenticated, token } = useSelector(state => state.auth)
 
     useEffect(() => {
         t1.current = gsap.timeline({
@@ -49,14 +50,16 @@ const AccountDashboard = ({ toggleProfileDropdown, profileDropdown }) => {
     }, [profileDropdown, t1])
 
     const dispatch = useDispatch();
+ 
+ 
     useEffect(() => {
-
         dispatch(getMyAccounts());
         dispatch(getMyStats())
         dispatch(getMyTransactions())
         dispatch(getMyMessages())
 
-    }, [dispatch]);
+
+    }, [dispatch, isAuthenticated, token]);
 
 
     const { user } = useSelector(state => state.auth);

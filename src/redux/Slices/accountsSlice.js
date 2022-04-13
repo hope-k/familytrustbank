@@ -2,9 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios'
 import instance from '../../axios';
 
-export const getMyAccounts = createAsyncThunk('/myAccounts', async () => {
+export const getMyAccounts = createAsyncThunk('/myAccounts', async (_, {getState}) => {
     try {
-        const { data } = await instance.get('/api/accounts')
+        const state = getState()
+        const token = state.auth?.token
+        const { data } = await instance.get('/api/accounts', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return data
     } catch (err) {
         return err.response.data
